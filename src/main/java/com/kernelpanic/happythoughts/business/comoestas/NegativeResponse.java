@@ -1,9 +1,11 @@
 package com.kernelpanic.happythoughts.business.comoestas;
 
-import com.kernelpanic.happythoughts.business.comoestas.AnalisisResponse;
-
 public class NegativeResponse extends AnalisisResponse {
-    public NegativeResponse(String result) {
+    public final String frase;
+    public final String recuerdo;
+    public NegativeResponse(String result, String frase, String recuerdo) {
         super(result);
+        this.frase = frase;
+        this.recuerdo = recuerdo;
     }
 }
