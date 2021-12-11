@@ -1,10 +1,21 @@
 package com.kernelpanic.happythoughts.business.happythougths;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.lucene.util.QueryBuilder;
+import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.index.query.MultiMatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.WildcardQueryBuilder;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.SearchHits;
+import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -39,6 +50,25 @@ public class HTService {
             log.info("Actualizada información del documento: {}",x);
             return true;
         }).orElse(false);
+    }
+
+    public String[] getEntities(final String id) {
+        return repository.findById(id).map(HTDocument::getEntities).orElse(null);
+    }
+
+    public List<HTDocument> buscarFraseBonita(final String key) {
+        log.info("Buscando coincidencias para la keyword: {}", key);
+        WildcardQueryBuilder queryBuilder = QueryBuilders
+                .wildcardQuery("name",key+"*");
+        Query searchQ = new NativeSearchQueryBuilder()
+                .withFilter(queryBuilder)
+                .build();
+        SearchHits<HTDocument> hits = elasticOps.search(searchQ, HTDocument.class,
+        IndexCoordinates.of(INDEX));
+        List<HTDocument> productMatches = new ArrayList<>();
+        hits.forEach(searchHit-> productMatches.add(searchHit.getContent()));
+        log.info("Coincidencias encontradas: {}",productMatches);
+        return productMatches;
     }
 
 }
