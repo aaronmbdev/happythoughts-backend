@@ -23,12 +23,16 @@ public class ComoEstasController {
     public AnalisisResponse getAnalysis(@RequestBody String text) {
         TextAnalysis analisis = service.analizeText(text);
         String veredict = analisis.getVeredict();
+
         if(veredict.equals("positive")) {
             String saved = service.savePositiveMood(text,analisis);
+            String[] entities = service.getEntities(saved);
             log.info("Se guardó mood positivo con id: {}",saved);
-            return new PositiveResponse(veredict, saved);
+            if(entities != null) log.info("Entidades encontradas: {}",entities);
+            return new PositiveResponse(veredict, saved, entities);
         } else if(veredict.equals("negative")) {
-            return new NegativeResponse(veredict);
+            String topEntity = service.getEntitiesforNegative(analisis);
+            return service.getPositivePhrase(veredict,topEntity);
         } else {
             return new ErrorResponse(veredict,"No se pudo determinar el sentimiento del texto");
         }

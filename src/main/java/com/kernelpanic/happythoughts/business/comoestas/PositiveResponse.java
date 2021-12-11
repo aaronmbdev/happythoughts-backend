@@ -1,11 +1,11 @@
 package com.kernelpanic.happythoughts.business.comoestas;
 
-import com.kernelpanic.happythoughts.business.comoestas.AnalisisResponse;
-
 public class PositiveResponse extends AnalisisResponse {
     public final String docId;
-    public PositiveResponse(String result, String docId) {
+    public final String[] entities;
+    public PositiveResponse(String result, String docId, String[] entities) {
         super(result);
         this.docId = docId;
+        this.entities = entities;
     }
 }
