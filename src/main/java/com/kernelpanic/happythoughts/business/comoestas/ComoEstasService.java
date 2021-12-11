@@ -51,7 +51,8 @@ public class ComoEstasService {
     public String getEntitiesforNegative(final TextAnalysis analisis) {
         List<Entity> list = analisis.getEntityList();
         list.sort((entity, t1) -> Float.compare(entity.getSalience(), t1.getSalience()));
-        return list.get(0).getName();
+        if(list.isEmpty()) return "test";
+        else return list.get(0).getName();
     }
 
     public NegativeResponse getPositivePhrase(final String veredict, final String key) {
