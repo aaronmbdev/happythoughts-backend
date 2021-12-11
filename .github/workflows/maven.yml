@@ -30,6 +30,11 @@ jobs:
     - name: Use gcloud CLI
       run: gcloud info
       
+    - name: Runs Elasticsearch
+      uses: elastic/elastic-github-actions/elasticsearch@master
+      with:
+        stack-version: 7.6.0
+      
     - name: Build with Maven
       run: mvn clean install
     - name: Run tests
