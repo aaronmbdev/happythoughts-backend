@@ -1,4 +1,4 @@
-package com.kernelpanic.happythoughts.ports.api.comoestas;
+package com.kernelpanic.happythoughts.business.comoestas;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
