@@ -12,6 +12,9 @@ import java.util.Optional;
 @Slf4j
 public class ProcesorService {
     private final LanguageServiceClient client;
+    private static final String POSITIVE = "positive";
+    private static final String NEGATIVE = "negative";
+    private static final String NEUTRAL = "neutral";
 
     public ProcesorService(LanguageServiceClient client) {
         this.client = client;
@@ -23,9 +26,13 @@ public class ProcesorService {
         Optional<Sentiment> sentiment = getSentiment(doc);
         if(sentiment.isPresent()) {
             List<Entity> lista = getEntities(doc);
-            TextAnalysis resultado = new TextAnalysis(sentiment.get(),lista);
+            String veredict = NEUTRAL;
+            if(sentiment.get().getScore() >= 0.25) veredict = POSITIVE;
+            else if(sentiment.get().getScore() < -0.25) veredict = NEGATIVE;
+            TextAnalysis resultado = new TextAnalysis(sentiment.get(),lista,veredict);
             return Optional.of(resultado);
         }
+        log.info("No se pudo analizar el texto");
         return Optional.empty();
     }
 
