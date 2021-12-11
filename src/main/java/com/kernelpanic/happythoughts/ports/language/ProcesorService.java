@@ -27,8 +27,8 @@ public class ProcesorService {
         if(sentiment.isPresent()) {
             List<Entity> lista = getEntities(doc);
             String veredict = NEUTRAL;
-            if(sentiment.get().getScore() >= 0.25) veredict = POSITIVE;
-            else if(sentiment.get().getScore() < -0.25) veredict = NEGATIVE;
+            if(sentiment.get().getScore() >= 0.3) veredict = POSITIVE;
+            else if(sentiment.get().getScore() < 0.3) veredict = NEGATIVE;
             TextAnalysis resultado = new TextAnalysis(sentiment.get(),lista,veredict);
             return Optional.of(resultado);
         }
