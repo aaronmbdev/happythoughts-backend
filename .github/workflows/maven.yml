@@ -9,9 +9,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
@@ -20,6 +18,18 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: maven
+        
+    - id: auth
+      uses: google-github-actions/auth@v0
+      with:
+        credentials_json: ${{ secrets.gcp_credentials }}
+        
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.3.0
+
+    - name: Use gcloud CLI
+      run: gcloud info
+      
     - name: Build with Maven
       run: mvn clean install
     - name: Run tests

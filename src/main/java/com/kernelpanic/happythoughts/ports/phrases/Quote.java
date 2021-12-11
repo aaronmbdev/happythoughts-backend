@@ -1,4 +1,4 @@
-package com.kernelpanic.happythoughts.ports.Phrases;
+package com.kernelpanic.happythoughts.ports.phrases;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
