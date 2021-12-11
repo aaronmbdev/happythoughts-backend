@@ -1,4 +1,4 @@
-package com.kernelpanic.happythoughts.ports.Phrases;
+package com.kernelpanic.happythoughts.ports.phrases;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

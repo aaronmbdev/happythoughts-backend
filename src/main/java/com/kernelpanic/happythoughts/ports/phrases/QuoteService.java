@@ -1,4 +1,4 @@
-package com.kernelpanic.happythoughts.ports.Phrases;
+package com.kernelpanic.happythoughts.ports.phrases;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
