@@ -13,4 +13,5 @@ import java.util.List;
 public class TextAnalysis {
     @NonNull Sentiment sentiment;
     @NonNull List<Entity> entityList;
+    @NonNull String veredict;
 }
