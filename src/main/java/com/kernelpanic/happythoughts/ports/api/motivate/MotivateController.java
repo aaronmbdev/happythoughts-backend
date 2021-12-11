@@ -16,6 +16,7 @@ public class MotivateController {
     }
 
     @PostMapping(value = "/motiva/{id}",produces = "application/json")
+    @CrossOrigin(origins = "http://localhost:3000")
     public void guardaMotivacion(@PathVariable String id, @RequestBody String text) throws MotivateResponseError {
         log.info("Actualizando frase de documento con id '{}'",id);
        if(! service.putPhrase(id,text)) throw new MotivateResponseError("No se ha encontrado el documento con id '"+id+"'");

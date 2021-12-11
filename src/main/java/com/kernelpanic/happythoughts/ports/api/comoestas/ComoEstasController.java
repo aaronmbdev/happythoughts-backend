@@ -3,10 +3,7 @@ package com.kernelpanic.happythoughts.ports.api.comoestas;
 import com.kernelpanic.happythoughts.business.comoestas.*;
 import com.kernelpanic.happythoughts.ports.language.TextAnalysis;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("como-estas")
@@ -20,6 +17,7 @@ public class ComoEstasController {
     }
 
     @PostMapping(value = "/analiza",produces = "application/json")
+    @CrossOrigin(origins = "http://localhost:3000")
     public AnalisisResponse getAnalysis(@RequestBody String text) {
         TextAnalysis analisis = service.analizeText(text);
         String veredict = analisis.getVeredict();
